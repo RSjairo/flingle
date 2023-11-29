@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
   <div class="container">
-    <a class="navbar-brand" routerLink="/" routerLinkActive="active">Flingle</a>
+    <a class="navbar-brand" routerLink="/errors" routerLinkActive="active"
+      >Flingle</a
+    >
 
     <ul class="navbar-nav mr-auto">
       <ng-container *ngIf="accountService.currentUser$ | async">
@@ -25,11 +27,11 @@
           >
         </li> -->
       </ng-container>
-      <!-- <li class="nav-item">
+      <li class="nav-item">
         <a class="nav-link" routerLink="/errors" routerLinkActive="active"
           >Errors</a
         >
-      </li> -->
+      </li>
     </ul>
 
     <div
