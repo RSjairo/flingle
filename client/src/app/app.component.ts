@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AccountService } from './_services/account.service';
+import { User } from './_models/user';
 
 @Component({
   selector: 'app-root',
@@ -10,30 +11,14 @@ export class AppComponent {
   title = 'Flingle';
   users: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(private accountService: AccountService) {}
 
-  header = new HttpHeaders({
-    'Content-Type': 'application/json',
-    // Authorization: 'Access-Control-Allow-Origin', // Add any additional headers as needed
-  });
-
-  ngOnInit() {
-    this.getUsers();
+  setCurrentUser() {
+    const user: User = JSON.parse(localStorage.getItem('user'));
+    this.accountService.setCurrentUser(user);
   }
 
-  getUsers() {
-    this.http
-      .get(
-        'http://localhost:5000/api/users'
-        // { headers: this.header }
-      )
-      .subscribe(
-        (response) => {
-          this.users = response;
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+  ngOnInit() {
+    this.setCurrentUser();
   }
 }

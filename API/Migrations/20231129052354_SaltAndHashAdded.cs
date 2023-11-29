@@ -3,10 +3,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace API.Data.Migrations
+namespace API.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class SaltAndHashAdded : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +18,9 @@ namespace API.Data.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserName = table.Column<string>(type: "text", nullable: true),
-                    Gender = table.Column<string>(type: "text", nullable: true)
+                    Gender = table.Column<string>(type: "text", nullable: true),
+                    PasswordHash = table.Column<byte[]>(type: "bytea", nullable: true),
+                    PasswordSalt = table.Column<byte[]>(type: "bytea", nullable: true)
                 },
                 constraints: table =>
                 {
