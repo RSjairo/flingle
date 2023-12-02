@@ -13,6 +13,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using API.Extensions;
 using API.Middleware;
+using API.Interfaces;
+using API.Data;
 
 
 namespace API
@@ -45,6 +47,8 @@ namespace API
             services.AddControllers();
 
             services.AddIdentityServices(_config);
+
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddSwaggerGen(c =>
             {

@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
@@ -20,6 +21,7 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { TestErrorComponent } from './errors/test-error/test-error.component';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
+import { MemberCardComponent } from './members/member-card/member-card.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import { ErrorInterceptor } from './_interceptors/error.interceptor';
     NotFoundComponent,
     ServerErrorComponent,
     TestErrorComponent,
+    MemberCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +48,7 @@ import { ErrorInterceptor } from './_interceptors/error.interceptor';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })
