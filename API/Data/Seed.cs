@@ -26,6 +26,23 @@ namespace API.Data
                 user.PasswordSalt = hmac.Key;
                 user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("Pa$$w0rd"));
                 await context.Users.AddAsync(user);
+
+                // Initialize the Photos collection if it's null
+                user.Photos ??= new List<Photo>();
+
+                // Check if the user has photos
+                if (user.Photos.Any())
+                {
+                    foreach (var photo in user.Photos)
+                    {
+                        // Ensure each photo has a URL
+                        if (string.IsNullOrEmpty(photo.Url))
+                        {
+                            // Set a default URL or handle accordingly
+                            // photo.Url = "default_photo_url.jpg";
+                        }
+                    }
+                }
             }
             await context.SaveChangesAsync();
 

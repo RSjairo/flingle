@@ -142,3 +142,4 @@
 /Users/rtvrsonico/Documents/dotnet/flingletraining/API/bin/Debug/net8.0/Renci.SshNet.dll
 /Users/rtvrsonico/Documents/dotnet/flingletraining/API/bin/Debug/net8.0/SshNet.Security.Cryptography.dll
 /Users/rtvrsonico/Documents/dotnet/flingletraining/API/bin/Debug/net8.0/System.Xml.XPath.XmlDocument.dll
+/Users/rtvrsonico/Documents/dotnet/flingletraining/API/bin/Debug/net8.0/AutoMapper.Extensions.ExpressionMapping.dll
