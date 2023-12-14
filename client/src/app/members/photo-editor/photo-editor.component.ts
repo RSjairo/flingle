@@ -13,12 +13,13 @@ import { Photo } from '../../_models/photo';
   templateUrl: './photo-editor.component.html',
   styleUrls: ['./photo-editor.component.css'],
 })
-export class PhotoEditorComponent {
+export class PhotoEditorComponent implements OnInit {
   @Input() member: Member;
   uploader: FileUploader;
   hasBaseDropzoneOver = false;
   baseUrl = environment.apiUrl;
   user: User;
+
   constructor(
     private accountService: AccountService,
     private memberService: MembersService
@@ -27,9 +28,15 @@ export class PhotoEditorComponent {
       .pipe(take(1))
       .subscribe((user) => (this.user = user));
   }
+
+  ngOnInit(): void {
+    this.initializeUploader();
+  }
+
   fileOverBase(e: any) {
     this.hasBaseDropzoneOver = e;
   }
+
   setMainPhoto(photo: Photo) {
     this.memberService.setMainPhoto(photo.id).subscribe(() => {
       this.user.photoUrl = photo.url;
@@ -53,15 +60,16 @@ export class PhotoEditorComponent {
       url: this.baseUrl + 'users/add-photo',
       authToken: 'Bearer ' + this.user.token,
       isHTML5: true,
-
       allowedFileType: ['image'],
       removeAfterUpload: true,
       autoUpload: false,
       maxFileSize: 10 * 1024 * 1024,
     });
+
     this.uploader.onAfterAddingFile = (file) => {
       file.withCredentials = false;
     };
+
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
         const photo: Photo = JSON.parse(response);
@@ -72,6 +80,9 @@ export class PhotoEditorComponent {
           this.accountService.setCurrentUser(this.user);
         }
       }
+    };
+    this.uploader.onErrorItem = (item, response, status, headers) => {
+      console.error('File upload error:', response);
     };
   }
 }
